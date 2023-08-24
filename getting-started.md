@@ -1,11 +1,16 @@
-修改自[Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge)，目的是兼容0.9.13和galactic版本的Autoware
 
-Alstar.2023.08.24
-
-Modified from [Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge) to be compatible with Autoware versions 0.9.13 and Galactic.
 
 This tutorial helps with setup and launch Autoware with CARLA simulator. Reports and improvement suggestions are very welcome.
 
+修改自[Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge)，目的是兼容0.9.13和galactic版本的Autoware
+
+Modified from [Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge) to be compatible with Autoware versions 0.9.13 and Galactic.
+
+Alstar.2023.08.24
+
+## TODO:
+- [ ] 目前没有针对bridge进行优化，内部的转发话题仍旧使用Robotics010作者的思路，后续会进行修改
+carla-msg继续使用作者修改过的版本
 ## Requirements
 
 * Ubuntu 20.04
@@ -25,20 +30,21 @@ sudo apt-get -y install git
 
 ### 1.1 CARLA server and client installation
 
-Install [CARLA server 0.9.12](https://carla.readthedocs.io/en/0.9.12/start_quickstart/#carla-installation) and [carla client 0.9.12](https://carla.readthedocs.io/en/0.9.12/start_quickstart/#carla-0912).
+Install [CARLA server 0.9.13](https://carla.readthedocs.io/en/0.9.13/start_quickstart/#carla-installation) and [CARLA client 0.9.13](https://carla.readthedocs.io/en/0.9.13/start_quickstart/#carla-0913).
 
-Currently `carla-ros-bridge` has the latest `0.9.12` tag, so it is recommended to use exact the same CARLA simulator and client.
+Currently  `main` branch of `carla-ros-bridge` supports version `0.9.13`, so it is recommended to use exact the same CARLA simulator and client.
 
-Check the CARLA with [Running CARLA steps](https://carla.readthedocs.io/en/0.9.12/start_quickstart/#running-carla) if needed.
+Check the CARLA with [Running CARLA steps](https://carla.readthedocs.io/en/0.9.13/start_quickstart/#running-carla) if needed.
 
 ### 1.2 Prepare map of CARLA town
 
-Clone [autoware-contents](https://bitbucket.org/carla-simulator/autoware-contents/src/master/), copy `maps/point_cloud_maps/Town01.pcd` and `maps/vector_maps/lanelet2/Town01.osm` to `~/autoware_map/carla-town-1/` and rename to `pointcloud_map.pcd` and `lanelet2_map.osm` accordingly.
+Clone [autoware-contents](https://bitbucket.org/carla-simulator/autoware-contents/src/master/), copy `maps/point_cloud_maps/Town01.pcd` and `maps/vector_maps/lanelet2/Town01.osm` to `~/autoware_map/carla-town-1/` (or any folder u want) and rename to `pointcloud_map.pcd` and `lanelet2_map.osm` accordingly (u better do this).
 
 ## Section 2 Autoware and carla-autoware-bridge installation
 
 This step describes how to install [Autoware Universe](https://autowarefoundation.github.io/autoware-documentation/galactic/installation/autoware/source-installation/) from `galactic` branch via **Source Installation** and how to install [`carla-autoware-bridge`](https://github.com/Robotics010/carla_autoware_bridge) to allow Autoware-CARLA communication.
 
+However, docker installation is also possible(i personally recommend), but it is not covered in this tutorial.
 ### 2.1 Set up a development environment
 
 Clone `autowarefoundation/autoware` repo and move to the directory.
@@ -64,15 +70,15 @@ Go to autoware/autoware.repos files and use your text editor to add the followin
   # carla
   carla/ros-bridge:
     type: git
-    url: https://github.com/Robotics010/ros-bridge.git
+    url: https://github.com/fengyeying/ros-bridge.git
     version: master
-  carla/astuff_sensor_msgs:
+  carla/ros-bridge/astuff_sensor_msgs:
     type: git
     url: https://github.com/astuff/astuff_sensor_msgs.git
     version: master
   carla/carla_autoware_bridge:
     type: git
-    url: https://github.com/Robotics010/carla_autoware_bridge.git
+    url: https://github.com/fengyeying/carla_autoware_bridge.git
     version: master
   carla/carla_tesla_model3_description:
     type: git
@@ -87,6 +93,7 @@ Go to autoware/autoware.repos files and use your text editor to add the followin
     url: https://github.com/Robotics010/carla_control_launch.git
     version: master
 ```
+[fengyeying/ros-bridge](https://github.com/fengyeying/ros-bridge) is a fork from [`Robotics010/ros-bridge`](https://github.com/Robotics010/ros-bridge) and have `some changes` , that were required from Autoware and carla0.9.13.
 
 [`Robotics010/ros-bridge`](https://github.com/Robotics010/ros-bridge) is a fork from [`carla-simulator/ros-bridge`](https://github.com/carla-simulator/ros-bridge) and have [some changes](https://github.com/Robotics010/ros-bridge/blob/b183848fc5fa35a35a6f3381466ea245f14cfc29/CHANGELOG.md#fork-changes), that were required from Autoware.
 
