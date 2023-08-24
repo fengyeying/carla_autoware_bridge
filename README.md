@@ -1,4 +1,8 @@
 # carla_autoware_bridge
+Alstar.
+1. 2023.08.24. 修改Bridge以兼容carla0.9.13和galactic版本的Autoware
+> The most important:**Thanks for the author Robotics010's work**
+
 An addition package to `carla_ros_bridge` to connect CARLA simulator to Autoware Universe software.
 
 Warning! This is still **Work in Progress** repository. Reports and improvement suggestions are very welcome.
