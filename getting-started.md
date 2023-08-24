@@ -1,3 +1,9 @@
+修改自[Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge)，目的是兼容0.9.13和galactic版本的Autoware
+
+Alstar.2023.08.24
+
+Modified from [Robotics010's repo](https://github.com/Robotics010/carla_autoware_bridge) to be compatible with Autoware versions 0.9.13 and Galactic.
+
 This tutorial helps with setup and launch Autoware with CARLA simulator. Reports and improvement suggestions are very welcome.
 
 ## Requirements
